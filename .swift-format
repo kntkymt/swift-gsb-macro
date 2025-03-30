@@ -1,0 +1,9 @@
+{
+	"indentation": {"spaces": 4},
+	"tabWidth": 4,
+	"lineBreakBeforeControlFlowKeywords": true,
+	"lineBreakBeforeEachArgument": true,
+	"rules": {
+		"NoAccessLevelOnExtensionDeclaration": false
+	}
+}
