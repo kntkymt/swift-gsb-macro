@@ -53,8 +53,8 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
         } expansion: {
             """
             func add(a: Int, b: Int) -> Int {
-                    a + b
-                }
+                a + b
+            }
             """
         }
 

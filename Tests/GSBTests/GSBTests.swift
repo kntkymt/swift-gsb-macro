@@ -36,12 +36,44 @@ final class GSBTests: XCTestCase {
         } expansion: {
             """
             func add(a: Int, b: Int) -> Int {
+                a + b
+            }
+
+            func sub(a: Int, b: Int) -> Int {
+                a - b
+            }
+            """
+        }
+
+        assertMacro {
+            #"""
+            struct Operator {
+                #gsbDecl {
+                    """
+                    func add(a: Int, b: Int) -> Int {
+                        a + b
+                    }
+                    """
+
+                    """
+                    func sub(a: Int, b: Int) -> Int {
+                        a - b
+                    }
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            """
+            struct Operator {
+                func add(a: Int, b: Int) -> Int {
                     a + b
                 }
 
                 func sub(a: Int, b: Int) -> Int {
                     a - b
                 }
+            }
             """
         }
     }
@@ -284,44 +316,44 @@ final class GSBTests: XCTestCase {
         } expansion: {
             """
             func zero() -> Int {
-                        0
-                    }
-                    
-                    func one() -> Int {
-                        1
-                    }
+                0
+            }
 
-                        func minusOne() -> Int {
-                            -1
-                        }
+            func one() -> Int {
+                1
+            }
 
-                    func zero() -> Int64 {
-                        0
-                    }
-                    
-                    func one() -> Int64 {
-                        1
-                    }
+            func minusOne() -> Int {
+                -1
+            }
 
-                        func minusOne() -> Int64 {
-                            -1
-                        }
+            func zero() -> Int64 {
+                0
+            }
 
-                    func zero() -> UInt {
-                        0
-                    }
-                    
-                    func one() -> UInt {
-                        1
-                    }
+            func one() -> Int64 {
+                1
+            }
 
-                    func zero() -> UInt64 {
-                        0
-                    }
-                    
-                    func one() -> UInt64 {
-                        1
-                    }
+            func minusOne() -> Int64 {
+                -1
+            }
+
+            func zero() -> UInt {
+                0
+            }
+
+            func one() -> UInt {
+                1
+            }
+
+            func zero() -> UInt64 {
+                0
+            }
+
+            func one() -> UInt64 {
+                1
+            }
             """
         }
 
