@@ -168,18 +168,18 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
-                func zero() -> Int {
-                    0
-                }
-                func one() -> Int {
-                    1
-                }
-                func zero() -> Int64 {
-                    0
-                }
-                func one() -> Int64 {
-                    1
-                }
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            func zero() -> Int64 {
+                0
+            }
+            func one() -> Int64 {
+                1
+            }
             """
             """#
         }
@@ -205,12 +205,12 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
-                func zero() -> Int {
-                    0
-                }
-                func one() -> Int {
-                    1
-                }
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
             """
             """#
         }
@@ -282,12 +282,12 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
-                func zero() -> Int {
-                    0
-                }
-                func one() -> Int {
-                    1
-                }
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
             """
             """#
         }
@@ -313,13 +313,46 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            """
+            """#
+        }
+
+        assertMacro {
+            #"""
+            func doSomething() {
+                let string = #gsbLet("Int") { int in
+                    """
+                    func zero() -> \(int) {
+                        0
+                    }
+                    """
+
+                    """
+                    func one() -> \(int) {
+                        1
+                    }
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            #"""
+            func doSomething() {
+                let string = """
                 func zero() -> Int {
                     0
                 }
                 func one() -> Int {
                     1
                 }
-            """
+                """
+            }
             """#
         }
     }

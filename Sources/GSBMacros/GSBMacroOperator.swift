@@ -37,6 +37,7 @@ private func requireGSBBuilderElements(
 ) throws -> [GSBBuilderElement] {
     try closure.statements.map { element in
         if let stringLiteral = StringLiteralExprSyntax(element.item) {
+            // TODO: normalize multiline strings to preserve original leading whitespace of the literal
             GSBBuilderElement.stringLiteral(stringLiteral.segments.description)
         }
         else if let macroExpansion = MacroExpansionExprSyntax(element.item),

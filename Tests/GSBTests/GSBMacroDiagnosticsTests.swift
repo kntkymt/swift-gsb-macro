@@ -390,7 +390,7 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
         } expansion: {
             #"""
             """
-                let \($0) = 1
+            let \($0) = 1
             """
             """#
         }
@@ -424,7 +424,7 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
         } expansion: {
             #"""
             """
-                let \($0) = 1
+            let \($0) = 1
             """
             """#
         }

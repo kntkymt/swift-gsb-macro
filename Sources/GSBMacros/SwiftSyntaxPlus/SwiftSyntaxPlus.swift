@@ -40,10 +40,25 @@ extension ExprSyntaxProtocol {
 }
 
 extension StringLiteralExprSyntax {
-    static func multiline(content: String) -> Self {
+    static func multiline(content: String, dropLeadingIndent: Bool = false) -> Self {
+        let charCountShouldDrop: Int? =
+            if dropLeadingIndent {
+                content.split(separator: "\n").reduce(into: []) {
+                    $0.append($1.prefix(while: \.isWhitespace).count)
+                }.min()
+            }
+            else {
+                nil
+            }
+
         let segments: [StringLiteralSegmentListSyntax.Element] = content.split(separator: "\n").map
-        {
-            .init(StringSegmentSyntax(content: .stringSegment(String($0) + "\n")))
+        { line in
+            var line = line
+            if let charCountShouldDrop {
+                line.removeFirst(charCountShouldDrop)
+            }
+
+            return .init(StringSegmentSyntax(content: .stringSegment(String(line) + "\n")))
         }
 
         return StringLiteralExprSyntax(
