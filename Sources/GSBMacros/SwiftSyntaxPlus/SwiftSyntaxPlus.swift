@@ -41,23 +41,17 @@ extension ExprSyntaxProtocol {
 
 extension StringLiteralExprSyntax {
     static func multiline(content: String) -> Self {
-        let leadingTrivia = content.prefix { $0.isWhitespace }
         let segments: [StringLiteralSegmentListSyntax.Element] = content.split(separator: "\n").map
         {
             .init(StringSegmentSyntax(content: .stringSegment(String($0) + "\n")))
         }
-
-        // to align indents between opening """ and closing """
-        // any better way?
-        var closingQuote = TokenSyntax.multilineStringQuoteToken()
-        closingQuote.leadingTrivia = .init(stringLiteral: String(leadingTrivia))
 
         return StringLiteralExprSyntax(
             openingQuote: .multilineStringQuoteToken(),
             segments: .init(itemsBuilder: {
                 segments
             }),
-            closingQuote: closingQuote
+            closingQuote: .multilineStringQuoteToken()
         )
     }
 }

@@ -144,7 +144,7 @@ final class GSBTests: XCTestCase {
                 func one() -> Int64 {
                     1
                 }
-                """
+            """
             """#
         }
     }
@@ -175,7 +175,7 @@ final class GSBTests: XCTestCase {
                 func one() -> Int {
                     1
                 }
-                """
+            """
             """#
         }
 
@@ -252,7 +252,7 @@ final class GSBTests: XCTestCase {
                 func one() -> Int {
                     1
                 }
-                """
+            """
             """#
         }
     }
@@ -283,7 +283,7 @@ final class GSBTests: XCTestCase {
                 func one() -> Int {
                     1
                 }
-                """
+            """
             """#
         }
     }
