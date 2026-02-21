@@ -100,13 +100,13 @@ final class GSBTests: XCTestCase {
             """
             {
                 func assert(_ a: Int, b: Int) {
-                        a == b
-                    }
-                    let a = 10
-                    assert(a, 10)
+                    a == b
+                }
+                let a = 10
+                assert(a, 10)
 
-                    let b = -50
-                    assert(b, 10)
+                let b = -50
+                assert(b, 10)
             }()
             """
         }
@@ -376,28 +376,28 @@ final class GSBTests: XCTestCase {
             """
             {
                 let a_Int_1: Int = 1
-                                assert(a: a_Int_1, b: 1)
+                assert(a: a_Int_1, b: 1)
 
-                                let a_Int_2: Int = 2
-                                assert(a: a_Int_2, b: 2)
+                let a_Int_2: Int = 2
+                assert(a: a_Int_2, b: 2)
 
-                                let a_Int64_1: Int64 = 1
-                                assert(a: a_Int64_1, b: 1)
+                let a_Int64_1: Int64 = 1
+                assert(a: a_Int64_1, b: 1)
 
-                                let a_Int64_2: Int64 = 2
-                                assert(a: a_Int64_2, b: 2)
+                let a_Int64_2: Int64 = 2
+                assert(a: a_Int64_2, b: 2)
 
-                                let a_UInt_1: UInt = 1
-                                assert(a: a_UInt_1, b: 1)
+                let a_UInt_1: UInt = 1
+                assert(a: a_UInt_1, b: 1)
 
-                                let a_UInt_2: UInt = 2
-                                assert(a: a_UInt_2, b: 2)
+                let a_UInt_2: UInt = 2
+                assert(a: a_UInt_2, b: 2)
 
-                                let a_UInt64_1: UInt64 = 1
-                                assert(a: a_UInt64_1, b: 1)
+                let a_UInt64_1: UInt64 = 1
+                assert(a: a_UInt64_1, b: 1)
 
-                                let a_UInt64_2: UInt64 = 2
-                                assert(a: a_UInt64_2, b: 2)
+                let a_UInt64_2: UInt64 = 2
+                assert(a: a_UInt64_2, b: 2)
             }()
             """
         }
