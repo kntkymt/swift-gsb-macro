@@ -110,6 +110,42 @@ final class GSBTests: XCTestCase {
             }()
             """
         }
+
+        assertMacro {
+            #"""
+            func doSomething() {
+                #gsbExpr {
+                    """
+                    func assert(_ a: Int, b: Int) {
+                        a == b
+                    }
+                    let a = 10
+                    assert(a, 10)
+                    """
+
+                    """
+                    let b = -50
+                    assert(b, 10)
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            """
+            func doSomething() {
+                {
+                    func assert(_ a: Int, b: Int) {
+                        a == b
+                    }
+                    let a = 10
+                    assert(a, 10)
+
+                    let b = -50
+                    assert(b, 10)
+                }()
+            }
+            """
+        }
     }
 
     func testGSBFor() {
