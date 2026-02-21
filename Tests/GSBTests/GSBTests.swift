@@ -471,4 +471,35 @@ final class GSBTests: XCTestCase {
             """
         }
     }
+
+    func testUnsupportedPreservingMultilineStringLiteralWhitespaceRule() {
+        assertMacro {
+            #"""
+            #gsbLet("Int") { int in
+                """
+                    func zero() -> \(int) {
+                        0
+                    }
+                """
+
+                """
+                    func one() -> \(int) {
+                        1
+                    }
+                    """
+            }
+            """#
+        } expansion: {
+            #"""
+            """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            """
+            """#
+        }
+    }
 }
