@@ -60,13 +60,13 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
 
         assertMacro {
             #"""
-            #gsbExpr(body: closure)
+            #gsbInvokedClosure(body: closure)
             """#
         } diagnostics: {
             """
-            #gsbExpr(body: closure)
-                     ┬───
-                     ╰─ 🛑 GSB Macros require use trailing closure
+            #gsbInvokedClosure(body: closure)
+                               ┬───
+                               ╰─ 🛑 GSB Macros require use trailing closure
             """
         }
 
@@ -115,13 +115,13 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
     func testOnlyAcceptStringLiteralOrGSBMacroExpansion() {
         assertMacro {
             #"""
-            #gsbExpr {
+            #gsbInvokedClosure {
                 10
             }
             """#
         } diagnostics: {
             """
-            #gsbExpr {
+            #gsbInvokedClosure {
                 10
                 ┬─
                 ╰─ 🛑 Builder of GSB Macros accepts only string literal or GSB Macros expansion
@@ -131,13 +131,13 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
 
         assertMacro {
             #"""
-            #gsbExpr {
+            #gsbInvokedClosure {
                 let number = 10
             }
             """#
         } diagnostics: {
             """
-            #gsbExpr {
+            #gsbInvokedClosure {
                 let number = 10
                 ┬──────────────
                 ╰─ 🛑 Builder of GSB Macros accepts only string literal or GSB Macros expansion
@@ -147,13 +147,13 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
 
         assertMacro {
             #"""
-            #gsbExpr {
+            #gsbInvokedClosure {
                 stringValue
             }
             """#
         } diagnostics: {
             """
-            #gsbExpr {
+            #gsbInvokedClosure {
                 stringValue
                 ┬──────────
                 ╰─ 🛑 Builder of GSB Macros accepts only string literal or GSB Macros expansion
@@ -163,13 +163,13 @@ final class GSBMacroDiagnosticsTests: XCTestCase {
 
         assertMacro {
             #"""
-            #gsbExpr {
+            #gsbInvokedClosure {
                 #stringfy(10)
             }
             """#
         } diagnostics: {
             """
-            #gsbExpr {
+            #gsbInvokedClosure {
                 #stringfy(10)
                 ┬────────────
                 ╰─ 🛑 Builder of GSB Macros accepts only string literal or GSB Macros expansion

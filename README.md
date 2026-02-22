@@ -87,14 +87,14 @@ struct StorageTest {
 
 </details>
 
-- You can also generate arbitrary expressions using `#gsbExpr`.
+- You can also generate arbitrary expressions using `#gsbInvokedClosure`.
 
 ```swift
 import GSB
 
 struct StorageTest {
     func testStorageReadWrite() {
-        #gsbExpr {
+        #gsbInvokedClosure {
             """
             var storage = Storage()
             """
@@ -239,13 +239,13 @@ extension Requests {
 
 </details>
 
-#### #gsbExpr
+#### #gsbInvokedClosure
 
 A freestanding expression macro that generates expression executing builder content.
 
 ```swift
 func printNumber() {
-    #gsbExpr {
+    #gsbInvokedClosure {
         """
         let number = 10
         print(number)

@@ -16,9 +16,9 @@ public macro gsbDecl(
 ) = #externalMacro(module: "GSBMacros", type: "GSBDecl")
 
 @freestanding(expression)
-public macro gsbExpr(
+public macro gsbInvokedClosure(
     @GSBBuilder body: () -> [String]
-) = #externalMacro(module: "GSBMacros", type: "GSBExpr")
+) = #externalMacro(module: "GSBMacros", type: "GSBInvokedClosure")
 
 // MARK: - Let
 
