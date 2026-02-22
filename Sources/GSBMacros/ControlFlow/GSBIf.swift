@@ -9,10 +9,7 @@ public struct GSBIf: GSBControlFlowExpressionMacro {
         in context: some SwiftSyntaxMacros.MacroExpansionContext
     ) throws -> SwiftSyntax.ExprSyntax {
         let content = try stringExpansion(of: node)
-        let stringLiteral = StringLiteralExprSyntax.multiline(
-            content: content,
-            dropLeadingIndent: true
-        )
+        let stringLiteral = StringLiteralExprSyntax.multiline(content: content)
 
         return ExprSyntax(stringLiteral)
     }

@@ -47,6 +47,34 @@ final class GSBTests: XCTestCase {
 
         assertMacro {
             #"""
+            #gsbDecl {
+                """
+                    func add(a: Int, b: Int) -> Int {
+                    a +     b
+                }
+                """
+
+                """
+                func sub(a: Int, b: Int) -> Int {
+                        a - b
+                    }
+                """
+            }
+            """#
+        } expansion: {
+            """
+            func add(a: Int, b: Int) -> Int {
+                a + b
+            }
+
+            func sub(a: Int, b: Int) -> Int {
+                a - b
+            }
+            """
+        }
+
+        assertMacro {
+            #"""
             struct Operator {
                 #gsbDecl {
                     """
@@ -496,6 +524,50 @@ final class GSBTests: XCTestCase {
                 0
             }
             func one() -> Int {
+                1
+            }
+            """
+            """#
+        }
+
+        assertMacro {
+            #"""
+            #gsbForEach(["Int", "UInt"]) { int in
+                """
+                func zero() -> \(int) {
+                    0
+                }
+                
+                func one() -> \(int) {
+                    1
+                }
+                """
+
+                #gsbIf("\(int)", notIn: ["UInt", "UInt64"]) {
+                    """
+                    func minusOne() -> \(int) {
+                        -1
+                    }
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            #"""
+            """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            func minusOne() -> Int {
+                -1
+            }
+            func zero() -> UInt {
+                0
+            }
+            func one() -> UInt {
                 1
             }
             """

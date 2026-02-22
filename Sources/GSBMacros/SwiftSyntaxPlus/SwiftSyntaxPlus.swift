@@ -39,26 +39,38 @@ extension ExprSyntaxProtocol {
     }
 }
 
-extension StringLiteralExprSyntax {
-    static func multiline(content: String, dropLeadingIndent: Bool = false) -> Self {
-        let charCountShouldDrop: Int? =
-            if dropLeadingIndent {
-                content.split(separator: "\n").reduce(into: []) {
-                    $0.append($1.prefix(while: \.isWhitespace).count)
-                }.min()
-            }
-            else {
-                nil
-            }
+extension String {
+    func removingLeadingIntent() -> Self {
+        let splited = split(separator: "\n", omittingEmptySubsequences: false)
 
-        let segments: [StringLiteralSegmentListSyntax.Element] = content.split(separator: "\n").map
-        { line in
+        let shouldDrop = splited
+            .lazy
+            .filter { !$0.allSatisfy(\.isWhitespace) }
+            .reduce(into: []) {
+                $0.append($1.prefix(while: \.isWhitespace).count)
+            }
+            .min()
+
+        guard let shouldDrop, shouldDrop > 0 else {
+            return self
+        }
+
+        return splited.map { line in
             var line = line
-            if let charCountShouldDrop {
-                line.removeFirst(charCountShouldDrop)
+            if shouldDrop <= line.count {
+                line.removeFirst(shouldDrop)
             }
 
-            return .init(StringSegmentSyntax(content: .stringSegment(String(line) + "\n")))
+            return line
+        }.joined(separator: "\n")
+    }
+}
+
+extension StringLiteralExprSyntax {
+    static func multiline(content: String) -> Self {
+        let segments: [StringLiteralSegmentListSyntax.Element] = content.split(separator: "\n").map
+        {
+            .init(StringSegmentSyntax(content: .stringSegment(String($0) + "\n")))
         }
 
         return StringLiteralExprSyntax(

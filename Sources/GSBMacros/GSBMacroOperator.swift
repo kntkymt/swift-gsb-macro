@@ -87,8 +87,9 @@ func expandGSBBuilderElements(
 
     let content = try gsbElements.map { gsbElement in
         switch gsbElement {
-        case .stringLiteral(let stringContent): stringContent
-        case .gsbMacroExpansion(let gsbMacroExpansion): try gsbMacroExpansion.expand()
+        case .stringLiteral(let stringContent): stringContent.removingLeadingIntent()
+        case .gsbMacroExpansion(let gsbMacroExpansion):
+            try gsbMacroExpansion.expand().removingLeadingIntent()
         }
     }
     .filter { !$0.isEmpty }
