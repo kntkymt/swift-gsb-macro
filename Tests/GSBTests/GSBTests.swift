@@ -106,10 +106,10 @@ final class GSBTests: XCTestCase {
         }
     }
 
-    func testGSBExpr() {
+    func testGSBInvokedClosure() {
         assertMacro {
             #"""
-            #gsbExpr {
+            #gsbInvokedClosure {
                 """
                 func assert(_ a: Int, b: Int) {
                     a == b
@@ -142,7 +142,7 @@ final class GSBTests: XCTestCase {
         assertMacro {
             #"""
             func doSomething() {
-                #gsbExpr {
+                #gsbInvokedClosure {
                     """
                     func assert(_ a: Int, b: Int) {
                         a == b
@@ -456,7 +456,7 @@ final class GSBTests: XCTestCase {
 
         assertMacro {
             #"""
-            #gsbExpr {
+            #gsbInvokedClosure {
                 #gsbForEach(["Int", "Int64", "UInt", "UInt64"]) { int in
                     #gsbForEach(["1", "2"]) { value in
                         #gsbLet("a_\(int)_\(value)") { varName in

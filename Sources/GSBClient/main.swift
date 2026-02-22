@@ -36,7 +36,7 @@ struct StorageTest {
     }
 
     func testStorageReadWrite() {
-        #gsbExpr {
+        #gsbInvokedClosure {
             """
             var storage = Storage()
             """
