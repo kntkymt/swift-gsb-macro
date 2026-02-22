@@ -87,7 +87,7 @@ struct StorageTest {
 
 </details>
 
-- You can also generate arbitrary expressions using `#gsbInvokedClosure`.
+- You can also generate arbitrally procedure by `#gsbInvokedClosure`.
 
 ```swift
 import GSB
@@ -270,7 +270,7 @@ func printNumber() {
 
 #### #gsbExpr
 
-A freestanding expression macro that generates a string literal expression from builder content.
+A freestanding expression macro that generates an arbitrally expression from builder content.
 
 ```swift
 let arrayLiteral = #gsbExpr {
@@ -284,7 +284,7 @@ let arrayLiteral = #gsbExpr {
 <summary>macro expansion result</summary>
 
 ```swift
-let arrayLiteral = "[1, 2, 3]"
+let arrayLiteral = [1, 2, 3]
 ```
 
 </details>
