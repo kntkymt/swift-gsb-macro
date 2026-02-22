@@ -39,25 +39,46 @@ extension ExprSyntaxProtocol {
     }
 }
 
+extension String {
+    func removingLeadingIntent() -> Self {
+        let splited = split(separator: "\n", omittingEmptySubsequences: false)
+
+        let shouldDrop = splited
+            .lazy
+            .filter { !$0.allSatisfy(\.isWhitespace) }
+            .reduce(into: []) {
+                $0.append($1.prefix(while: \.isWhitespace).count)
+            }
+            .min()
+
+        guard let shouldDrop, shouldDrop > 0 else {
+            return self
+        }
+
+        return splited.map { line in
+            var line = line
+            if shouldDrop <= line.count {
+                line.removeFirst(shouldDrop)
+            }
+
+            return line
+        }.joined(separator: "\n")
+    }
+}
+
 extension StringLiteralExprSyntax {
     static func multiline(content: String) -> Self {
-        let leadingTrivia = content.prefix { $0.isWhitespace }
         let segments: [StringLiteralSegmentListSyntax.Element] = content.split(separator: "\n").map
         {
             .init(StringSegmentSyntax(content: .stringSegment(String($0) + "\n")))
         }
-
-        // to align indents between opening """ and closing """
-        // any better way?
-        var closingQuote = TokenSyntax.multilineStringQuoteToken()
-        closingQuote.leadingTrivia = .init(stringLiteral: String(leadingTrivia))
 
         return StringLiteralExprSyntax(
             openingQuote: .multilineStringQuoteToken(),
             segments: .init(itemsBuilder: {
                 segments
             }),
-            closingQuote: closingQuote
+            closingQuote: .multilineStringQuoteToken()
         )
     }
 }

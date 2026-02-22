@@ -36,12 +36,72 @@ final class GSBTests: XCTestCase {
         } expansion: {
             """
             func add(a: Int, b: Int) -> Int {
+                a + b
+            }
+
+            func sub(a: Int, b: Int) -> Int {
+                a - b
+            }
+            """
+        }
+
+        assertMacro {
+            #"""
+            #gsbDecl {
+                """
+                    func add(a: Int, b: Int) -> Int {
+                    a +     b
+                }
+                """
+
+                """
+                func sub(a: Int, b: Int) -> Int {
+                        a - b
+                    }
+                """
+            }
+            """#
+        } expansion: {
+            """
+            func add(a: Int, b: Int) -> Int {
+                a + b
+            }
+
+            func sub(a: Int, b: Int) -> Int {
+                a - b
+            }
+            """
+        }
+
+        assertMacro {
+            #"""
+            struct Operator {
+                #gsbDecl {
+                    """
+                    func add(a: Int, b: Int) -> Int {
+                        a + b
+                    }
+                    """
+
+                    """
+                    func sub(a: Int, b: Int) -> Int {
+                        a - b
+                    }
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            """
+            struct Operator {
+                func add(a: Int, b: Int) -> Int {
                     a + b
                 }
 
                 func sub(a: Int, b: Int) -> Int {
                     a - b
                 }
+            }
             """
         }
     }
@@ -68,6 +128,41 @@ final class GSBTests: XCTestCase {
             """
             {
                 func assert(_ a: Int, b: Int) {
+                    a == b
+                }
+                let a = 10
+                assert(a, 10)
+
+                let b = -50
+                assert(b, 10)
+            }()
+            """
+        }
+
+        assertMacro {
+            #"""
+            func doSomething() {
+                #gsbExpr {
+                    """
+                    func assert(_ a: Int, b: Int) {
+                        a == b
+                    }
+                    let a = 10
+                    assert(a, 10)
+                    """
+
+                    """
+                    let b = -50
+                    assert(b, 10)
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            """
+            func doSomething() {
+                {
+                    func assert(_ a: Int, b: Int) {
                         a == b
                     }
                     let a = 10
@@ -75,7 +170,8 @@ final class GSBTests: XCTestCase {
 
                     let b = -50
                     assert(b, 10)
-            }()
+                }()
+            }
             """
         }
     }
@@ -100,19 +196,19 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
-                func zero() -> Int {
-                    0
-                }
-                func one() -> Int {
-                    1
-                }
-                func zero() -> Int64 {
-                    0
-                }
-                func one() -> Int64 {
-                    1
-                }
-                """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            func zero() -> Int64 {
+                0
+            }
+            func one() -> Int64 {
+                1
+            }
+            """
             """#
         }
     }
@@ -137,13 +233,13 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
-                func zero() -> Int {
-                    0
-                }
-                func one() -> Int {
-                    1
-                }
-                """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            """
             """#
         }
 
@@ -214,13 +310,13 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
-                func zero() -> Int {
-                    0
-                }
-                func one() -> Int {
-                    1
-                }
-                """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            """
             """#
         }
     }
@@ -245,6 +341,38 @@ final class GSBTests: XCTestCase {
         } expansion: {
             #"""
             """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            """
+            """#
+        }
+
+        assertMacro {
+            #"""
+            func doSomething() {
+                let string = #gsbLet("Int") { int in
+                    """
+                    func zero() -> \(int) {
+                        0
+                    }
+                    """
+
+                    """
+                    func one() -> \(int) {
+                        1
+                    }
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            #"""
+            func doSomething() {
+                let string = """
                 func zero() -> Int {
                     0
                 }
@@ -252,6 +380,7 @@ final class GSBTests: XCTestCase {
                     1
                 }
                 """
+            }
             """#
         }
     }
@@ -284,44 +413,44 @@ final class GSBTests: XCTestCase {
         } expansion: {
             """
             func zero() -> Int {
-                        0
-                    }
-                    
-                    func one() -> Int {
-                        1
-                    }
+                0
+            }
 
-                        func minusOne() -> Int {
-                            -1
-                        }
+            func one() -> Int {
+                1
+            }
 
-                    func zero() -> Int64 {
-                        0
-                    }
-                    
-                    func one() -> Int64 {
-                        1
-                    }
+            func minusOne() -> Int {
+                -1
+            }
 
-                        func minusOne() -> Int64 {
-                            -1
-                        }
+            func zero() -> Int64 {
+                0
+            }
 
-                    func zero() -> UInt {
-                        0
-                    }
-                    
-                    func one() -> UInt {
-                        1
-                    }
+            func one() -> Int64 {
+                1
+            }
 
-                    func zero() -> UInt64 {
-                        0
-                    }
-                    
-                    func one() -> UInt64 {
-                        1
-                    }
+            func minusOne() -> Int64 {
+                -1
+            }
+
+            func zero() -> UInt {
+                0
+            }
+
+            func one() -> UInt {
+                1
+            }
+
+            func zero() -> UInt64 {
+                0
+            }
+
+            func one() -> UInt64 {
+                1
+            }
             """
         }
 
@@ -344,30 +473,105 @@ final class GSBTests: XCTestCase {
             """
             {
                 let a_Int_1: Int = 1
-                                assert(a: a_Int_1, b: 1)
+                assert(a: a_Int_1, b: 1)
 
-                                let a_Int_2: Int = 2
-                                assert(a: a_Int_2, b: 2)
+                let a_Int_2: Int = 2
+                assert(a: a_Int_2, b: 2)
 
-                                let a_Int64_1: Int64 = 1
-                                assert(a: a_Int64_1, b: 1)
+                let a_Int64_1: Int64 = 1
+                assert(a: a_Int64_1, b: 1)
 
-                                let a_Int64_2: Int64 = 2
-                                assert(a: a_Int64_2, b: 2)
+                let a_Int64_2: Int64 = 2
+                assert(a: a_Int64_2, b: 2)
 
-                                let a_UInt_1: UInt = 1
-                                assert(a: a_UInt_1, b: 1)
+                let a_UInt_1: UInt = 1
+                assert(a: a_UInt_1, b: 1)
 
-                                let a_UInt_2: UInt = 2
-                                assert(a: a_UInt_2, b: 2)
+                let a_UInt_2: UInt = 2
+                assert(a: a_UInt_2, b: 2)
 
-                                let a_UInt64_1: UInt64 = 1
-                                assert(a: a_UInt64_1, b: 1)
+                let a_UInt64_1: UInt64 = 1
+                assert(a: a_UInt64_1, b: 1)
 
-                                let a_UInt64_2: UInt64 = 2
-                                assert(a: a_UInt64_2, b: 2)
+                let a_UInt64_2: UInt64 = 2
+                assert(a: a_UInt64_2, b: 2)
             }()
             """
+        }
+    }
+
+    func testUnsupportedPreservingMultilineStringLiteralWhitespaceRule() {
+        assertMacro {
+            #"""
+            #gsbLet("Int") { int in
+                """
+                    func zero() -> \(int) {
+                        0
+                    }
+                """
+
+                """
+                    func one() -> \(int) {
+                        1
+                    }
+                    """
+            }
+            """#
+        } expansion: {
+            #"""
+            """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            """
+            """#
+        }
+
+        assertMacro {
+            #"""
+            #gsbForEach(["Int", "UInt"]) { int in
+                """
+                func zero() -> \(int) {
+                    0
+                }
+                
+                func one() -> \(int) {
+                    1
+                }
+                """
+
+                #gsbIf("\(int)", notIn: ["UInt", "UInt64"]) {
+                    """
+                    func minusOne() -> \(int) {
+                        -1
+                    }
+                    """
+                }
+            }
+            """#
+        } expansion: {
+            #"""
+            """
+            func zero() -> Int {
+                0
+            }
+            func one() -> Int {
+                1
+            }
+            func minusOne() -> Int {
+                -1
+            }
+            func zero() -> UInt {
+                0
+            }
+            func one() -> UInt {
+                1
+            }
+            """
+            """#
         }
     }
 }

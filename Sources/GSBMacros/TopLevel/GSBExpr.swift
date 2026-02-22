@@ -9,6 +9,6 @@ public struct GSBExpr: ExpressionMacro {
     ) throws -> SwiftSyntax.ExprSyntax {
         let content = try expandGSBBuilderElements(of: node)
 
-        return ExprSyntax(stringLiteral: "{\(content)}()")
+        return ExprSyntax(stringLiteral: "{\(content)}()").reviseIndent()
     }
 }
