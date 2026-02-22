@@ -176,6 +176,22 @@ final class GSBTests: XCTestCase {
         }
     }
 
+    func testGSBExpr() {
+        assertMacro {
+            #"""
+            let arrayLiteral = #gsbExpr {
+                """
+                [1, 2, 3]
+                """
+            }
+            """#
+        } expansion: {
+            #"""
+            let arrayLiteral = [1, 2, 3]
+            """#
+        }
+    }
+
     func testGSBFor() {
         assertMacro {
             #"""

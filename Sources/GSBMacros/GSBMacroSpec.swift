@@ -7,11 +7,13 @@ public enum GSBMacroSpec: CaseIterable {
     public enum TopLevel: String, CaseIterable {
         case gsbDecl
         case gsbInvokedClosure
+        case gsbExpr
 
         public var macroType: Macro.Type {
             switch self {
             case .gsbDecl: GSBDecl.self
             case .gsbInvokedClosure: GSBInvokedClosure.self
+            case .gsbExpr: GSBExpr.self
             }
         }
     }

@@ -20,6 +20,11 @@ public macro gsbInvokedClosure(
     @GSBBuilder body: () -> [String]
 ) = #externalMacro(module: "GSBMacros", type: "GSBInvokedClosure")
 
+@freestanding(expression)
+public macro gsbExpr(
+    @GSBBuilder body: () -> [String]
+) = #externalMacro(module: "GSBMacros", type: "GSBExpr")
+
 // MARK: - Let
 
 @freestanding(expression)
