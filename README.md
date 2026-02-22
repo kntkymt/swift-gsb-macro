@@ -268,6 +268,27 @@ func printNumber() {
 
 </details>
 
+#### #gsbExpr
+
+A freestanding expression macro that generates a string literal expression from builder content.
+
+```swift
+let arrayLiteral = #gsbExpr {
+    """
+    [1, 2, 3]
+    """
+}
+```
+
+<details>
+<summary>macro expansion result</summary>
+
+```swift
+let arrayLiteral = "[1, 2, 3]"
+```
+
+</details>
+
 ### ControlFlow Macros
 
 ControlFlow Macros are freestanding expression macros that generate string literal based on builder content and specific control flow of each macros.
