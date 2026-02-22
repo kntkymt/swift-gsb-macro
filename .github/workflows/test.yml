@@ -11,4 +11,4 @@ jobs:
       - name: Select Xcode version
         run: sudo xcode-select -s "/Applications/Xcode_26.2.app/Contents/Developer"
       - name: Test Modules
-        run: make test_modules
+        run: make test
