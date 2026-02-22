@@ -7,7 +7,7 @@ GSB Macro helps you generate boilerplate declarations and expressions in Swift. 
 ### Swift Package Manager
 
 ```swift
-.package(url: "https://github.com/kntkymt/swift-gsb-macro", from: "0.0.1")
+.package(url: "https://github.com/kntkymt/swift-gsb-macro", from: "0.1.0")
 ```
 
 ## Quick Overview
