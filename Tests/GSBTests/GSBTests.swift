@@ -190,6 +190,20 @@ final class GSBTests: XCTestCase {
             let arrayLiteral = [1, 2, 3]
             """#
         }
+
+        assertMacro {
+            #"""
+            let tuples = #gsbExpr {
+                """
+                [(1, "a"), (2, "b")]
+                """
+            }
+            """#
+        } expansion: {
+            #"""
+            let tuples = [(1, "a"), (2, "b")]
+            """#
+        }
     }
 
     func testGSBFor() {
